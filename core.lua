@@ -1,4 +1,12 @@
 local engine = require("nibb.engine")
+local languess = require("nibb.languess_server")
+
+-- Autokill server
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function()
+        languess.kill_server()
+    end
+})
 
 -- Utils
 
@@ -75,6 +83,11 @@ end
 
 local M = {}
 
+-- Export server functions
+M.start_server = languess.start_server
+M.kill_server = languess.kill_server
+
+
 function M.get_all_snippets()
     local snippets = engine.load_all()
     if not snippets then return {} end
@@ -128,6 +141,16 @@ function M.edit_snippet(name)
                 return
             end
 
+            if languess.is_running() then
+                local guessed_language = languess.predict(updated.content or "")
+                if not guessed_language or guessed_language == "" then
+                    vim.notify("Error guessing language of: " .. updated.content or "", vim.log.levels.ERROR)
+                else
+                    updated.meta.language = guessed_language
+                    vim.notify("auto detected: '" .. guessed_language .. "' from content", vim.log.levels.WARN)
+                end
+            end
+
             updated.meta.modified = os.date("!%Y-%m-%dT%H:%M:%SZ")
             local ok2, err = pcall(function()
                 engine.save_snippet(updated)
@@ -136,8 +159,6 @@ function M.edit_snippet(name)
                 vim.notify("Error saving snippet: " .. err, vim.log.levels.ERROR)
                 return
             end
-
-            vim.notify("Snippet saved", vim.log.levels.INFO)
 
             vim.schedule(function()
                 vim.api.nvim_buf_set_option(buf, "modified", false)

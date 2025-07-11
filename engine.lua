@@ -7,6 +7,7 @@ ffi.cdef[[
     bool save_all_ffi(const char *snippet_json);
     bool delete_snippet_ffi(const char *name);
     void free_string_ffi(char *s);
+    char *nibb_git_generic_ffi(const char *args);
 ]]
 
 --- Expands a tilde-prefixed path to an absolute Windows path.
@@ -162,5 +163,19 @@ function M.delete_snippet(name)
     end
 end
 
+function M.nibb_git_generic(args)
+    if not args or args == "" then
+        return
+    end
+
+    local result = safe_string(engine.nibb_git_generic_ffi(args))
+
+    local err = is_error_json(result)
+    if err then
+        return load_error(err)
+    end
+    local out = safe_json_decode(result)
+    return out
+end
 
 return M
