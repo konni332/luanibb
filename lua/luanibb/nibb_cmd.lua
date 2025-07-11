@@ -1,5 +1,5 @@
-local languess = require("nibb.languess_server")
-local engine = require("nibb.engine")
+local languess = require("luanibb.languess_server")
+local engine = require("luanibb.engine")
 local function handle_languess_status()
     local ok, running = pcall(languess.is_running)
 
