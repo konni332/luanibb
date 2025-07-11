@@ -1,5 +1,5 @@
-local engine = require("nibb.engine")
-local languess = require("nibb.languess_server")
+local engine = require("luanibb.engine")
+local languess = require("luanibb.languess_server")
 
 -- Autokill server
 vim.api.nvim_create_autocmd("VimLeavePre", {

@@ -4,7 +4,7 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
-local core = require("nibb.core")
+local core = require("luanibb.core")
 
 -- Utils
 local previewers = require("telescope.previewers")

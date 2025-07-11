@@ -17,7 +17,7 @@ local function expand_home(path)
     return path:gsub("^~", os.getenv("USERPROFILE") or "~")
 end
 
-local lib_path = expand_home("~/.nibb/lib/nibb_core.dll")
+local lib_path = expand_home(require("luanibb.config").get_nibb_lib_path())
 local ok, engine = pcall(ffi.load, lib_path)
 if not ok then
         error("Failed to load nibb_core library backend: " .. tostring(engine))
