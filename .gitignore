@@ -25,4 +25,4 @@ dist/
 *.egg-info/
 
 # Model
-model/
+**/model/
