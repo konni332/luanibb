@@ -218,22 +218,20 @@ function M.new_snippet()
             vim.ui.input({ prompt = "Description: " }, function(desc)
                 snippet.meta.description = desc or ""
 
-                vim.ui.input({ prompt = "Language: " }, function(lang)
-                    snippet.meta.language = lang or ""
+                snippet.meta.language = "unknwon"
 
-                    vim.ui.select({ "private", "public" }, { prompt = "Visibility:" }, function(vis)
-                        snippet.meta.visibility = vis or "private"
+                vim.ui.select({ "private", "public" }, { prompt = "Visibility:" }, function(vis)
+                    snippet.meta.visibility = vis or "private"
 
-                        -- Save
-                        local success = engine.save_snippet(snippet)
-                        if not success then
-                            vim.notify("Error saving snippet", vim.log.levels.ERROR)
-                            return
-                        end
+                    -- Save
+                    local success = engine.save_snippet(snippet)
+                    if not success then
+                        vim.notify("Error saving snippet", vim.log.levels.ERROR)
+                        return
+                    end
 
-                        -- Edit content
-                        M.edit_snippet(snippet.meta.name)
-                    end)
+                    -- Edit content
+                    M.edit_snippet(snippet.meta.name)
                 end)
             end)
         end)
