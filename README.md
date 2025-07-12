@@ -1,6 +1,6 @@
 # luanibb.nvim
 
-A fast and minimal snippet manager for NeoVim - with built-in fuzzy finder, Git integration, and auto language detection (optional).
+A fast and minimal snippet manager for Neovim — featuring a built-in fuzzy finder, Git integration, and optional automatic language detection.
 
 ---
 
@@ -8,8 +8,8 @@ A fast and minimal snippet manager for NeoVim - with built-in fuzzy finder, Git 
 
 - Create, edit, delete and insert code snippets
 - Fuzzy finder integration via [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-- Snippets saved in files (no cloud, no bulls***)
-- Optional automatic language detection using an ML model, run on a *Language server* like python server
+- Snippets are saved locally in plain files (no cloud, no bullshit)
+- Optional language detection via an ML-based server (Python via native shared library)
 - Configurable keymaps and settings
 - Designed for developers who want *fast*, minimal tools
 
@@ -27,20 +27,20 @@ Using [Lazy.nvim](https://github.com/folke/lazy.nvim):
             nibb_lib_path = "~/.nibb/lib/nibb_core.dll", -- Required: path to nibb native library
             languess_lib_path = "~/.nibb/lib/languess_core.dll", -- Optional: path to language detection native library (Languess).
             auto_start_languess = true, -- Optional: auto start languess server
-            enable_default_keymaps = true, -- Optional(strongly recommended!): adds <leader>fz for snippet fuzzy finder
+            enable_default_keymaps = true, -- Optional (strongly recommended!): adds <leader>fz for snippet fuzzy finder
         })
     end,
 },
 ```
 
-*if <leader>fz is enabled you can use it to open luanibbs fuzzy finder*  
-**The snippets are almost exclusively managet in this fuzzy finder**
+*If `<leader>fz` is enabled, you can use it to open luanibb's fuzzy finder.*  
+**Snippets are almost exclusively managed through this interface.**
 
 ---
 
-## Fuzzy finder
+## 🔍 Fuzzy finder
 
-**Image**
+[demo](./assets/finder-demo.gif)
 
 ---
 
@@ -63,22 +63,27 @@ To configure Nibb, have a look at its **[documentation](https://github.com/konni
 
 ---
 
-### Shortcuts
+### 🧷 Keybindings
 
-- **`<CR>` (Enter)** Insert the selected snippet at your cursor (behaves like `p` key)
-- **`<C-e>` (Ctrl + e)** Edit a snippet inside NeoVim. Even tho you can, you should not edit the field names!
-- **`<C-d>` (Ctrl + d)** Delete the selected snippet. You will be asked for confirmation
-- **`<C-n>` (Ctrl + n)** Create a new snippet.
+| Key        | Action                                 |
+|------------|----------------------------------------|
+| `<CR>`     | Insert selected snippet (like `p`)     |
+| `<C-e>`    | Edit selected snippet in Neovim        |
+| `<C-d>`    | Delete selected snippet (with confirm) |
+| `<C-n>`    | Create a new snippet                   |
 
 ---
 
-## :Nibb
 
-- **git [ARGS]** Executes any valid git command for the local luanibb repository
-- **languess?** Fetches status of languess server
-- **languess start** Starts languess server
-- **languess kill** Kills languess server (terminates child-process)
-- **languess** Predicts the language of your systems clipboards contents. Works for "+" and "*" registers
+## `:Nibb` Commands
+
+| Command                | Description                                              |
+|------------------------|----------------------------------------------------------|
+| `:Nibb git [args]`     | Run git commands in the luanibb snippet repo             |
+| `:Nibb languess?`      | Check if the languess server is running                  |
+| `:Nibb languess`       | Predict the language of the current clipboard content    |
+| `:Nibb languess start` | Start the languess server                                |
+| `:Nibb languess kill`  | Kill the languess server                                 |
 
 ---
 
@@ -94,6 +99,6 @@ Suggestions and PRs welcome. For larger contributions, open an issue first.
 This project is licensed under either of
 
 - MIT license ([LICENSE-MIT](./LICENSE-MIT) or https://opensource.org/license/MIT)
-- Apache license, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE.md) or https://www.apache.org/license/LICENSE-2.0)
+- Apache license, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE.md) or https://www.apache.org/licenses/LICENSE-2.0)
 
 ---
